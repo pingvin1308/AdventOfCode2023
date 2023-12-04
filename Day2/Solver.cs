@@ -6,7 +6,7 @@ public static class Solver
     {
         var result = 0;
 
-        await foreach (var game in GameSets.GetValues())
+        await foreach (var game in GameReader.GetValues())
         {
             result += game.CanPlay() ? game.GameNumber : 0;
         }
@@ -18,7 +18,7 @@ public static class Solver
     {
         var result = 0;
 
-        await foreach (var game in GameSets.GetValues())
+        await foreach (var game in GameReader.GetValues())
         {
             var maxRed = game.Sets.MaxBy(x => x.Red)?.Red ?? 1;
             var maxGreen = game.Sets.MaxBy(x => x.Green)?.Green ?? 1;

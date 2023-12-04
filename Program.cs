@@ -2,9 +2,11 @@
 
 // var answer1 = await AdventOfCode.Day1.Solver.GetAnswer();
 
-var day2Answer1 = await AdventOfCode.Day2.Solver.GetAnswer1();
-Console.WriteLine(day2Answer1);
+// var day2Answer1 = await AdventOfCode.Day2.Solver.GetAnswer1();
+// Console.WriteLine(day2Answer1);
+//
+// var day2Answer2 = await AdventOfCode.Day2.Solver.GetAnswer2();
+// Console.WriteLine(day2Answer2);
 
-var day2Answer2 = await AdventOfCode.Day2.Solver.GetAnswer2();
-Console.WriteLine(day2Answer2);
-// 2810 
+var day3Answer1 = await AdventOfCode.Day3.Solver.GetAnswer1();
+Console.WriteLine(day3Answer1);

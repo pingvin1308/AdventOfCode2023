@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode.Day2;
 
-public static class GameSets
+public static class GameReader
 {
     public static async IAsyncEnumerable<Game> GetValues()
     {
