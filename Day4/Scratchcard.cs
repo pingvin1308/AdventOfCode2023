@@ -11,4 +11,10 @@ public record Scratchcard(HashSet<int> WinningNumbers, int[] Numbers)
 
         return result;
     }
+
+    public int GetNextCopies()
+    {
+        var result = Numbers.Where(number => WinningNumbers.Contains(number));
+        return result.Count();
+    }
 }
