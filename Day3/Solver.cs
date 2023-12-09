@@ -13,6 +13,6 @@ public class Solver
     public static async Task<int> GetAnswer2()
     {
         var engine = await EngineReader.GetEngine();
-        return engine.GetGears().Sum(x => x.number1 * x.number2);
+        return engine.GetGears().Sum();
     }
 }

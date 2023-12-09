@@ -7,7 +7,7 @@ public static class EngineReader
     public static async Task<Engine> GetEngine()
     {
         await using var stream = File.OpenRead("Day3/input.txt");
-        using var s = new StreamReader(stream);
+        using var streamReader = new StreamReader(stream);
 
         var lineNumber = 0;
         var digits = new HashSet<EngineDigit>();
@@ -17,9 +17,9 @@ public static class EngineReader
         var symbols = new HashSet<EngineSymbol>();
         var width = 0;
 
-        while (!s.EndOfStream)
+        while (!streamReader.EndOfStream)
         {
-            var line = await s.ReadLineAsync() ?? string.Empty;
+            var line = await streamReader.ReadLineAsync() ?? string.Empty;
             width = line.Length;
             for (var i = 0; i < line.Length; i++)
             {
@@ -61,10 +61,11 @@ public static class EngineReader
 
 public record Engine(EngineNumber[] Numbers, EngineSymbol[] Symbols, int Width, int Height)
 {
-    public (EngineSymbol symbol, EngineNumber number)[] GetParts()
+    public (EngineSymbol symbol, EngineNumber number)[] GetParts(char? filterSymbol = null)
     {
         var result = new HashSet<(EngineSymbol symbol, EngineNumber number)>();
-        foreach (var symbol in Symbols)
+        var symbols = filterSymbol == null ? Symbols : Symbols.Where(x => x.Symbol == filterSymbol).ToArray();
+        foreach (var symbol in symbols)
         {
             var (x, y) = symbol.Coordinates;
             var coordsAroundSymbol = new[]
@@ -81,7 +82,7 @@ public record Engine(EngineNumber[] Numbers, EngineSymbol[] Symbols, int Width, 
 
             foreach (var coordAroundSymbol in coordsAroundSymbol)
             {
-                var number = Numbers.FirstOrDefault(n => n.Digits.Any(y => y.Coordinates == coordAroundSymbol));
+                var number = Numbers.FirstOrDefault(n => n.Digits.Any(d => d.Coordinates == coordAroundSymbol));
                 if (number != null)
                 {
                     result.Add((symbol, number));
@@ -92,9 +93,15 @@ public record Engine(EngineNumber[] Numbers, EngineSymbol[] Symbols, int Width, 
         return result.ToArray();
     }
 
-    public (int number1, int number2)[] GetGears()
+    public int[] GetGears()
     {
-        return Array.Empty<(int, int)>();
+        var gearParts = GetParts('*')
+            .GroupBy(x => x.symbol)
+            .Where(x => x.Count() > 1)
+            .Select(gearPart => gearPart.Aggregate(1, (current, num) => current * num.number.Value))
+            .ToArray();
+
+        return gearParts;
     }
 }
 
