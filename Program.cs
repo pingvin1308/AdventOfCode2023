@@ -17,6 +17,8 @@
 // var day4Answer1 = await AdventOfCode.Day4.Solver.GetAnswer1();
 // Console.WriteLine(day4Answer1);
 
-var day4Answer2 = await AdventOfCode.Day4.Solver.GetAnswer2();
-Console.WriteLine(day4Answer2);
-// 5037841
+// var day4Answer2 = await AdventOfCode.Day4.Solver.GetAnswer2();
+// Console.WriteLine(day4Answer2);
+
+var day5Answer1 = await AdventOfCode.Day5.Solver.GetAnswer1();
+Console.WriteLine(day5Answer1);
